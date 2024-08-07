@@ -42,17 +42,10 @@ if(DO_TESTING)
 endif()
 
 if(MSVC)
-    # LTO
-    set(RELEASE_MODE_COMP_OPTIONS /LTCG)
-
     # Runtime checks
     set(DEBUG_MODE_COMP_OPTIONS /RTC1)
 
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU|MSYS|MinGW")
-    # LTO
-    set(RELEASE_MODE_COMP_OPTIONS -flto)
-    set(RELEASE_MODE_LINK_OPTIONS -flto)
-
     # Sanitizers
     set(DEBUG_MODE_COMP_OPTIONS -fsanitize=address,undefined)
     set(DEBUG_MODE_LINK_OPTIONS -fsanitize=address,undefined)
@@ -72,7 +65,7 @@ if(CMAKE_CONFIGURATION_TYPES)
         target_link_options(${TESTS_EXE} PRIVATE $<$<CONFIG:Debug>:${DEBUG_MODE_LINK_OPTIONS}>)
     endif()
 
-    # Release mode
+    # Release mode options
     target_compile_options(${MAIN_EXE} PRIVATE $<$<CONFIG:Release>:${RELEASE_MODE_COMP_OPTIONS}>)
     target_link_options(${MAIN_EXE} PRIVATE $<$<CONFIG:Debug>:${RELEASE_MODE_LINK_OPTIONS}>)
 
@@ -80,6 +73,10 @@ if(CMAKE_CONFIGURATION_TYPES)
         target_compile_options(${TESTS_EXE} PRIVATE $<$<CONFIG:Release>:${RELEASE_MODE_COMP_OPTIONS}>)
         target_link_options(${TESTS_EXE} PRIVATE $<$<CONFIG:Debug>:${RELEASE_MODE_LINK_OPTIONS}>)
     endif()
+
+    # Enable LTO in release mode (only for the main executable)
+    set_property(TARGET ${MAIN_EXE} PROPERTY INTERPROCEDURAL_OPTIMIZATION
+        $<$<CONFIG:Release>:TRUE>$<$<NOT:$<CONFIG:Release>>:FALSE>)
 
 # Set options for single-configuration generators (e.g. Makefiles)
 else()
@@ -100,6 +97,9 @@ else()
             target_compile_options(${TESTS_EXE} PRIVATE ${RELEASE_MODE_COMP_OPTIONS})
             target_link_options(${TESTS_EXE} PRIVATE ${RELEASE_MODE_LINK_OPTIONS})
         endif()
+
+        # Enable LTO in release mode (only for the main executable)
+        set_property(TARGET ${MAIN_EXE} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
     endif()
 endif()
 
