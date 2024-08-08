@@ -83,16 +83,24 @@ script. You may have to invoke the Python script with `python3`.
 python build.py
 ```
 
-This will generate 2 executables: `MY_PROJECT` and `run_tests`
-(`MY_PROJECT.exe` and `run_tests.exe` on Windows).
+If you don't get an error message from the script then you're done.
 
 Using the Python build script you can easily switch between debug and release
-builds by adding the `--debug` and `--release` flags (debug by default).
+builds by adding the `--debug` and `--release` flags (debug by default). The
+script will automatically reconfigure CMake if it needs to.
 
-You can add `-p` or `--parallel` to compile with all CPU cores (if the generator
-supports it). This can make error messages and warnings less cohesive.
+```sh
+python build.py --release
+```
 
-For help info run the script with `-h` or `--help`.
+You can add `-p` or `--parallel` to compile with all CPU cores. Keep in mind
+that this can make error messages and warnings less cohesive.
+
+```sh
+python build.py -p
+```
+
+For more help info run the script with `-h` or `--help`.
 
 > [!NOTE]
 > If you are on Windows the script will use
@@ -107,17 +115,10 @@ For help info run the script with `-h` or `--help`.
 
 #### Building With CMake
 
-Make a build directory in the root of the project folder and move into it.
+Start by configuring CMake in a build folder called `build`.
 
 ```sh
-mkdir build                                     # Make a build folder
-cd build                                        # Move into the build folder
-```
-
-Next, configure CMake.
-
-```sh
-cmake ..
+cmake -B build
 ```
 
 > [!NOTE]
@@ -126,13 +127,13 @@ cmake ..
 > by adding `--DCMAKE_BUILD_TYPE=Release`.
 >
 > ```sh
-> cmake .. --DCMAKE_BUILD_TYPE=Release
+> cmake -B build --DCMAKE_BUILD_TYPE=Release
 > ```
 
 Now we can build the project by running this:
 
 ```sh
-cmake --build .
+cmake --build build
 ```
 
 > [!NOTE]
@@ -141,7 +142,7 @@ cmake --build .
 > adding `--config Release`.
 >
 > ```sh
-> cmake --build . --config Release
+> cmake --build build --config Release
 > ```
 
 ### Running the Executables
@@ -150,21 +151,23 @@ Successfully built executables will be in your build directory.
 
 > [!NOTE]
 > If you're on Windows using Visual Studio as your generator then your
-> executables will be in the `Debug` sub-folder of your build directory (or
+> executables will be in the `Debug` sub-folder of the `build` directory (or
 > `Release` if you built in release mode).
 
-From inside the build directory you can run your compiled executable like this:
+You can run your compiled executable like this:
+
+On MacOS/Linux (using `Unix Makefiles` or a similar generator):
 
 ```sh
-./MY_PROJECT                                    # Using Unix Makefiles
-./Debug/MY_PROJECT.exe                          # Using Visual Studio (debug)
-./Release/MY_PROJECT.exe                        # Using Visual Studio (release)
+./build/MY_PROJECT
 ```
 
-The same goes for the `run_tests` executable:
+On Windows (using `Visual Studio 17 2022` or a similar generator):
 
-```sh
-./run_tests                                     # Using Unix Makefiles
-./Debug/run_tests.exe                           # Using Visual Studio (debug)
-./Release/run_tests.exe                         # Using Visual Studio (release)
+```ps1
+.\build\Debug\MY_PROJECT.exe        # Using Visual Studio on Windows (debug)
+.\build\Release\MY_PROJECT.exe      # Using Visual Studio on Windows (release)
 ```
+
+The same goes for the `run_tests` executable (just replace `MY_PROJECT` with
+`run_tests`).
