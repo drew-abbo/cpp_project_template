@@ -63,16 +63,18 @@ You'll need to customize a few things before you get started.
 
 ### Requirements
 
-Ensure you have [CMake](https://cmake.org) (must be on the path and able to be
-called from the command line as `cmake`), a CMake
+Ensure you have [CMake](https://cmake.org) (make sure it's on the path, i.e.
+`cmake --version` works in your terminal), a CMake
 [generator](https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html),
-and a C/C++ compiler supported by CMake.
+and a C/C++ compiler supported by CMake and your generator.
 
 Once you have the repository cloned you can build with the
-[Python build script](#python-build-script) or you can
+[Python build script](#python-build-script), or you can
 [build manually with CMake](#building-with-cmake). Check out
 [how to run the compiled executables](#running-the-executables) once you've
 built successfully.
+
+You can also [use an IDE](#using-an-ide) (like Visual Studio).
 
 ### Python Build Script
 
@@ -108,12 +110,8 @@ For more help info run the script with `-h` or `--help`.
 > generator. Otherwise it will use
 > [`Unix Makefiles`](https://www.gnu.org/software/make/). If you want to use
 > the Python script make sure you have the correct generator installed.
->
-> You'll also need to make sure CMake is on the path and callable from the
-> shell as `cmake`. You can test this by running `cmake --version` in your
-> terminal.
 
-#### Building With CMake
+### Building With CMake
 
 Start by configuring CMake in a build folder called `build`.
 
@@ -171,3 +169,18 @@ On Windows (using `Visual Studio 17 2022` or a similar generator):
 
 The same goes for the `run_tests` executable (just replace `MY_PROJECT` with
 `run_tests`).
+
+### Using an IDE
+
+#### Visual Studio / CLion
+
+Just open the project folder with the editor.
+
+#### Xcode
+
+To use Xcode, configure CMake and then open the `.xcodeproj` folder.
+
+```sh
+cmake -B build -G "Xcode"
+open build/MY_PROJECT.xcodeproj
+```
