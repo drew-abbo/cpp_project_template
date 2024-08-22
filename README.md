@@ -74,7 +74,7 @@ Once you have the repository cloned you can build with the
 [how to run the compiled executables](#running-the-executables) once you've
 built successfully.
 
-You can also [use an IDE](#using-an-ide) (like Visual Studio).
+You can also [use an IDE](#using-an-ide) (like Visual Studio) if you'd prefer.
 
 ### Python Build Script
 
@@ -174,7 +174,8 @@ The same goes for the `run_tests` executable (just replace `MY_PROJECT` with
 
 #### Visual Studio / CLion
 
-Just open the project folder with the editor.
+Just open the project folder with the editor. CMake should automatically be
+configured.
 
 #### Xcode
 
@@ -184,3 +185,9 @@ To use Xcode, configure CMake and then open the `.xcodeproj` folder.
 cmake -B build -G "Xcode"
 open build/MY_PROJECT.xcodeproj
 ```
+
+#### VSCode
+
+You can either use the integrated terminal and the build info above or you can
+use the [CMake Tools](vscode:extension/ms-vscode.cmake-tools) extension to build
+and run with `shift+F5` (you can just build with `F7`).
