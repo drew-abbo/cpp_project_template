@@ -37,21 +37,21 @@ with this template without even needing to give credit.
 You'll need to customize a few things before you get started.
 
 - In [CMakeLists.txt](./CMakeLists.txt):
-  - Replace `MY_PROJECT` (line 6) with this project's name. This will be the
+  - Replace `MY_PROJECT` (line 7) with this project's name. This will be the
     name of the main compiled executable. It should also match name of the Git
     repo.
-  - *Optionally* change the C++ standard from C++17 (line 7).
+  - *Optionally* change the C++ standard from C++17 (line 10).
   - *Optionally* change the name of the folder where all of your header files
-    will live (line 8). You can also remove this line to not have an include
+    will live (line 11). You can also remove this line to not have an include
     folder. The default is `include`.
-  - *Optionally* change the name of the main file (line 9). The default is
+  - *Optionally* change the name of the main file (line 12). The default is
     `main.cpp`.
   - *Optionally* change the name of the folder where all of your source code
-    will live (line 10). The default is `src`.
-  - *Optionally* disable the testing with GoogleTest (line 11) by replacing `ON`
+    will live (line 13). The default is `src`.
+  - *Optionally* disable the testing with GoogleTest (line 14) by replacing `ON`
     with `OFF`. The `run_test` executable will not be built if disabled.
   - *Optionally* change the name of the folder where all of your test files will
-    live (line 12). The default is `tests`. This directory can be removed if
+    live (line 15). The default is `tests`. This directory can be removed if
     testing is disabled.
 - In [this file](./README.md):
   - Find and replace `MY_PROJECT` with this project's name.
