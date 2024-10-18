@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.22)
 #
 project(
     MY_PROJECT # The project name
-    C CXX # The langauges this project uses
+    C CXX # The languages this project uses
 )
 set(CMAKE_CXX_STANDARD 17) # The C++ standard
 set(INCLUDE_DIR include) # Name of the folder with header files
