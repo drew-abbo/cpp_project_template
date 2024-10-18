@@ -55,7 +55,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU|MSYS|MinGW")
 
     # Sanitizers, debug info, and no optimization in debug mode
     set(DEBUG_MODE_COMP_OPTIONS ${GENERAL_COMP_OPTIONS} -fsanitize=address,undefined -g -O0)
-    set(DEBUG_MODE_LINK_OPTIONS -fsanitize=address,undefined)
+    set(DEBUG_MODE_LINK_OPTIONS ${GENERAL_LINK_OPTIONS} -fsanitize=address,undefined)
 
     # Strip debug symbols, and do high optimization, do link time optimization,
     # and aggressively inline functions in release mode
@@ -83,11 +83,11 @@ if(CMAKE_CONFIGURATION_TYPES)
 
     # Release mode options
     target_compile_options(${MAIN_EXE} PRIVATE $<$<CONFIG:Release>:${RELEASE_MODE_COMP_OPTIONS}>)
-    target_link_options(${MAIN_EXE} PRIVATE $<$<CONFIG:Debug>:${RELEASE_MODE_LINK_OPTIONS}>)
+    target_link_options(${MAIN_EXE} PRIVATE $<$<CONFIG:Release>:${RELEASE_MODE_LINK_OPTIONS}>)
 
     if(DO_TESTING)
         target_compile_options(${TESTS_EXE} PRIVATE $<$<CONFIG:Release>:${RELEASE_MODE_COMP_OPTIONS}>)
-        target_link_options(${TESTS_EXE} PRIVATE $<$<CONFIG:Debug>:${RELEASE_MODE_LINK_OPTIONS}>)
+        target_link_options(${TESTS_EXE} PRIVATE $<$<CONFIG:Release>:${RELEASE_MODE_LINK_OPTIONS}>)
     endif()
 
     # Enable LTO in release mode (only for the main executable)
