@@ -29,8 +29,8 @@ also remove it if you want.
 Source files with the `.c`, `.cpp`, `.cc`, `.cxx`, and `c++` extensions are all
 recognized.
 
-This code is licensed under the Unlicense license which means you do anything
-with this template without even needing to give credit.
+This code is licensed under the Unlicense license which means you can do
+anything with this template without even needing to give credit.
 
 ### How to Use This Template (Getting Started)
 
